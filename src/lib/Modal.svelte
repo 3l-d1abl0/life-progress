@@ -34,24 +34,36 @@
     return isValid(parsed);
   }
 
-  function handleSave() {
+  function validateTitle(title: string): string{
 
     //Check for Blank Titles
     if (!title.trim()) {
-      error = 'Please enter a title';
-      return;
+      return 'Please enter a title';
+      
     }
-
+    
     //check Title Length
     if (title.length > 100) {
-      error = 'Title must be 100 characters or less';
-      return;
+      return 'Title must be 100 characters or less';
+      
     }
+
     //Check Title String
     if (!isValidTitle(title)) {
-      error = 'Invalid title. Please remove special characters or HTML';
-      return;
+      return 'Invalid title. Please remove special characters or HTML';
+      
     }
+
+    console.log('Valid Title !');
+    return '';
+  }
+
+  function handleSave() {
+
+    //Check title
+    error = validateTitle(title);
+    if(error != '')
+        return;
 
     //Check if start date is valid
     if (!validateDate(startDate)){
@@ -91,10 +103,23 @@
     show = false;//hide the box
   }
 
+
   function handleCancel() {
-    console.log('Closing');
-    show = false;
+
+    const savedStart = localStorage.getItem('startDate');
+    const savedEnd = localStorage.getItem('endDate');
+    const savedTitle = localStorage.getItem('title');
+
+    //if everyting is valid, hide modal
+    if (savedStart && savedEnd && savedTitle && validateDate(savedStart) && validateDate(savedEnd) && validateTitle(savedTitle)=='') {
+      console.log(savedStart, savedEnd, savedTitle);
+      show = false;
+      error = '';
+    } else {
+      error = 'Please enter valid dates and title before closing';
+    }
   }
+
 
 </script>
 
