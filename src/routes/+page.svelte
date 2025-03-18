@@ -1,5 +1,6 @@
 <script lang="ts">
     import ProgressBar from '../lib/ProgressBar.svelte';
+    import Modal from '../lib/Modal.svelte';
 
   let showModal = false;
   let yearProgress = 60;
@@ -20,6 +21,7 @@
       <ProgressBar label="Life" percentage={lifeProgress} />
     </div>
   
+    <Modal />
 </main>
 
 
