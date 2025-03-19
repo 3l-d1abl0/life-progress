@@ -26,7 +26,7 @@
     }
   
     .progress-bar {
-      height: 20px;
+      height: 10px;
       background: #e0e0e0;
       border-radius: 10px;
       box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.1),

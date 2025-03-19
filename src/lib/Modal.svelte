@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isValid, parse } from 'date-fns';
-  
+
   let { showModal = $bindable() } = $props();
   //export let showModal;
 
@@ -211,7 +211,7 @@
       width: 100%;
       padding: 0.5rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 6px;
       background: #e0e0e0;
       box-shadow: inset 2px 2px 5px #babecc,
                   inset -5px -5px 10px #ffffff;

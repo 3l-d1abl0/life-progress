@@ -91,7 +91,9 @@
       <ProgressBar label="Day" percentage={dayProgress} />
       <ProgressBar label="Life" percentage={lifeProgress} />
     </div>
-  
+    <div class="engrave-holder">
+      <h2 class="engrave">Press 'ctrl+e' to edit</h2>
+    </div>
     <Modal bind:showModal />
     
 </main>
@@ -105,6 +107,7 @@
       align-items: center;
       background: #f0f0f0;
       padding: 1rem;
+      flex-direction: column;
     }
   
     .progress-container {
@@ -126,6 +129,7 @@
 
     h1.progress-title{
         margin-bottom: 0rem;
+        color: #4a90e2;
     }
   
     @media (max-width: 600px) {
@@ -137,4 +141,17 @@
         font-size: 1.5rem;
       }
     }
+
+    .engrave-holder{
+      margin-top: 3rem;
+    }
+
+    .engrave, .quote::before {
+      background: #b1b1b1;
+      -webkit-background-clip: text;
+              background-clip: text;
+      color: transparent;
+      text-shadow: rgba(255, 255, 255, 0.5) 1px 2px 1px;
+    }
+
   </style>
