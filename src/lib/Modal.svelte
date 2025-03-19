@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isValid, parse } from 'date-fns';
 
-  let show = $state(true);
+  let { showModal } = $props(); 
 
   let startDate = '';
   let endDate = '';
@@ -100,7 +100,7 @@
 
     error ='';//remove error message
     console.log('Saving');
-    show = false;//hide the box
+    showModal = false;//hide the box
   }
 
 
@@ -113,7 +113,7 @@
     //if everyting is valid, hide modal
     if (savedStart && savedEnd && savedTitle && validateDate(savedStart) && validateDate(savedEnd) && validateTitle(savedTitle)=='') {
       console.log(savedStart, savedEnd, savedTitle);
-      show = false;
+      showModal = false;
       error = '';
     } else {
       error = 'Please enter valid dates and title before closing';
@@ -123,7 +123,7 @@
 
 </script>
 
-{#if show}
+{#if showModal}
 <div class="modal-overlay">
   <div class="modal">
     <h2>Set Progress Details</h2>
