@@ -164,8 +164,8 @@
     </div>
 
     <div class="button-group">
-        <button on:click={handleSave}>Save</button>
-        <button on:click={handleCancel}>Cancel</button>
+        <button onclick={handleSave}>Save</button>
+        <button onclick={handleCancel}>Cancel</button>
     </div>
   </div>
 </div>

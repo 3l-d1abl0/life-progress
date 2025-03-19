@@ -1,12 +1,15 @@
 <script lang="ts">
-    export let label: string;
-    export let percentage: number;
-  </script>
+
+    let {label, percentage, ...props } = $props();
+    //$inspect(props);
+
+
+</script>
   
   <div class="progress-container">
     <div class="progress-label">{label}: {percentage.toFixed(2)}%</div>
     <div class="progress-bar">
-      <div class="progress-fill" style="width: {percentage}%"></div>
+        <div class="progress-fill" style="width: {percentage}%"></div>
     </div>
   </div>
   

@@ -1,14 +1,72 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import ProgressBar from '../lib/ProgressBar.svelte';
     import Modal from '../lib/Modal.svelte';
 
   let showModal = false;
-  let yearProgress = 60;
-  let monthProgress = 70;
-  let weekProgress = 40;
-  let dayProgress = 90;
-  let lifeProgress = 30;
+  let yearProgress = 50;
+  let monthProgress = 50;
+  let weekProgress = 50;
+  let dayProgress = 50;
+  let lifeProgress = 50;
   let title = 'Time Progress';
+  import {
+    startOfYear,
+    startOfMonth,
+    startOfWeek,
+    startOfDay,
+    endOfYear,
+    endOfMonth,
+    endOfWeek,
+    endOfDay,
+    differenceInMilliseconds,
+    parse
+  } from 'date-fns';
+
+  //Calculate Percentage
+  function calculateProgress(start: Date, end: Date, current: Date = new Date()): number {
+    const total = differenceInMilliseconds(end, start);
+    const elapsed = differenceInMilliseconds(current, start);
+    return (elapsed / total) * 100;
+  }
+
+  function updateProgress() {
+    console.log('Updating Progress !');
+    const now = new Date();
+    const year = now.getFullYear();
+
+    yearProgress = calculateProgress(startOfYear(now), endOfYear(now));
+    monthProgress = calculateProgress(startOfMonth(now), endOfMonth(now));
+    weekProgress = calculateProgress(
+      startOfWeek(now, { weekStartsOn: 6 }), // 6 represents Saturday
+      endOfWeek(now, { weekStartsOn: 6 })
+    );
+    dayProgress = calculateProgress(startOfDay(now), endOfDay(now));
+
+    console.log(yearProgress, monthProgress,  weekProgress, dayProgress);
+
+    // Calculate life progress if dates exist in localStorage
+    const startDateStr = localStorage.getItem('startDate');
+    const endDateStr = localStorage.getItem('endDate');
+    const savedTitle = localStorage.getItem('title');
+
+    if (startDateStr && endDateStr && savedTitle) {
+      const startDate = parse(startDateStr, 'dd/MM/yyyy', new Date());
+      const endDate = parse(endDateStr, 'dd/MM/yyyy', new Date());
+      lifeProgress = calculateProgress(startDate, endDate);
+      title = savedTitle;
+      console.log('LifeProgress: ', lifeProgress);
+    }
+  }
+
+  onMount(() => {
+    updateProgress();
+    const interval = setInterval(updateProgress, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
 </script>
 
 <main>
