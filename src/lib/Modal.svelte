@@ -55,7 +55,6 @@
       
     }
 
-    console.log('Valid Title !');
     return '';
   }
 
@@ -69,14 +68,12 @@
     //Check if start date is valid
     if (!validateDate(startDate)){
         error = 'Please enter Start Date in dd/mm/yyyy format';
-        console.log('Invalid Start Date !');
         return;  
     }
 
     //Check if end Date is valid
     if (!validateDate(endDate)) {
       error = 'Please enter End Date in dd/mm/yyyy format';
-      console.log('Invalid End Date');
       return;
     }
 
@@ -100,12 +97,11 @@
     localStorage.setItem('title', title);
 
     error ='';//remove error message
-    console.log('Saving');
     showModal = false;//hide the box
   }
 
 
-  function handleCancel() {
+  export function handleCancel() {
 
     const savedStart = localStorage.getItem('startDate');
     const savedEnd = localStorage.getItem('endDate');
@@ -113,11 +109,12 @@
 
     //if everyting is valid, hide modal
     if (savedStart && savedEnd && savedTitle && validateDate(savedStart) && validateDate(savedEnd) && validateTitle(savedTitle)=='') {
-      console.log(savedStart, savedEnd, savedTitle);
       showModal = false;
       error = '';
+      return true;
     } else {
       error = 'Please enter valid dates and title before closing';
+      return false;
     }
   }
 

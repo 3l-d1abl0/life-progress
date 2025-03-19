@@ -1,28 +1,30 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import ProgressBar from '../lib/ProgressBar.svelte';
-    import Modal from '../lib/Modal.svelte';
+  import { onMount } from 'svelte';
+  import ProgressBar from '../lib/ProgressBar.svelte';
+  import Modal from '../lib/Modal.svelte';
+  import {
+      startOfYear,
+      startOfMonth,
+      startOfWeek,
+      startOfDay,
+      endOfYear,
+      endOfMonth,
+      endOfWeek,
+      endOfDay,
+      differenceInMilliseconds,
+      parse
+    } from 'date-fns';
 
   let showModal = $state(false);
   
-  let yearProgress = $state(50);
-  let monthProgress = $state(50);
-  let weekProgress = $state(50);
-  let dayProgress = $state(50);
-  let lifeProgress = $state(50);
+  let yearProgress = $state(0);
+  let monthProgress = $state(100);
+  let weekProgress = $state(0);
+  let dayProgress = $state(100);
+  let lifeProgress = $state(0);
   let title = $state('Time Progress');
-  import {
-    startOfYear,
-    startOfMonth,
-    startOfWeek,
-    startOfDay,
-    endOfYear,
-    endOfMonth,
-    endOfWeek,
-    endOfDay,
-    differenceInMilliseconds,
-    parse
-  } from 'date-fns';
+
+  let modal: Modal;
 
   //Calculate Percentage
   function calculateProgress(start: Date, end: Date, current: Date = new Date()): number {
@@ -71,12 +73,12 @@
   onMount(() => {
     updateProgress();
     const interval = setInterval(updateProgress, 1000);
-    console.log('addding event listner');
     window.addEventListener('keydown', handleShowHideModal);
+
+    showModal = !modal.handleCancel();
 
     return () => {
       clearInterval(interval);
-      console.log('removing event listner');
       window.removeEventListener('keydown', handleShowHideModal);
     };
   });
@@ -94,7 +96,7 @@
     <div class="engrave-holder">
       <h2 class="engrave">Press 'ctrl+e' to edit</h2>
     </div>
-    <Modal bind:showModal />
+    <Modal bind:showModal bind:this={modal}/>
     
 </main>
 
