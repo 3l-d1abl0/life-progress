@@ -1,7 +1,8 @@
 <script lang="ts">
   import { isValid, parse } from 'date-fns';
-
-  let { showModal } = $props(); 
+  
+  let { showModal = $bindable() } = $props();
+  //export let showModal;
 
   let startDate = '';
   let endDate = '';

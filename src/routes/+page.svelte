@@ -92,7 +92,8 @@
       <ProgressBar label="Life" percentage={lifeProgress} />
     </div>
   
-    <Modal {showModal} />
+    <Modal bind:showModal />
+    
 </main>
 
 
